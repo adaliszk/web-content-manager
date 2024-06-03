@@ -1,0 +1,36 @@
+name: "Set up the Environment"
+description: >-
+  Configures the necessary environment for CI jobs
+
+inputs: {}
+runs:
+  using: "composite"
+  steps:
+    -
+      name: Configure Node Environment
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+    -
+      name: Configure PNPM
+      uses: pnpm/action-setup@v4
+      with:
+        run_install: false
+    -
+      name: Retrieve PNPM store directory
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+    -
+      name: Use PNPM cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.STORE_PATH }}
+        key: "${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}"
+        restore-keys: |
+          ${{ runner.os }}-pnpm-store-
+    -
+      name: Install dependencies
+      shell: bash
+      run: |
+        pnpm install --frozen-lockfile
