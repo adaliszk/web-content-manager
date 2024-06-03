@@ -1,0 +1,14 @@
+{
+    "extends": "@adaliszk/typescript",
+    "compilerOptions": {
+        "baseUrl": "src",
+        "allowImportingTsExtensions": true,
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "types": ["vite/client", "astro/client", ".astro/types", "vitest"],
+        "paths": {
+            "~/*": ["*"],
+            "~content/*": ["../content/*"]
+        }
+    }
+}
