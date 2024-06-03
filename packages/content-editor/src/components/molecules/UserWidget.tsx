@@ -1,4 +1,4 @@
-import { component$, useVisibleTask$ } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 
 export const UserWidget = component$(() => {
     // useVisibleTask$(() => {

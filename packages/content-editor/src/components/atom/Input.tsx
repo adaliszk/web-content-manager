@@ -1,6 +1,6 @@
 import type { JSXOutput, PropsOf } from "@builder.io/qwik";
 
-import { Slot, component$ } from "@builder.io/qwik";
+import { component$ } from "@builder.io/qwik";
 import { twMerge } from "tailwind-merge";
 
 export type InputProps = PropsOf<"input"> & {

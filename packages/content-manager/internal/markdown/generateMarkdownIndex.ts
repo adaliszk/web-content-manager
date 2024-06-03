@@ -2,7 +2,6 @@ import type { Result } from "@adaliszk/std";
 import type { ZodSchema } from "zod";
 import type {
     CollectionEntry,
-    CollectionIndex,
     LatestChanges,
     ParsedCollectionDefinition,
     RegExpression,
