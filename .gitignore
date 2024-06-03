@@ -4,7 +4,7 @@
 
 # Generated files
 **/content/**/*.schema.json
-**/content/**/index.ts
+docs/src/content/**/index.ts
 
 # Tools
 **/.astro

@@ -1,0 +1,13 @@
+{
+    "extends": "@adaliszk/typescript",
+    "include": ["*.config.ts", "core/**/*", "internal/**/*", "integration/**/*"],
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "allowImportingTsExtensions": true,
+        "removeComments": false,
+        "types": ["vite/client", "vitest"],
+        "outDir": "dist",
+        "lib": ["esnext.asynciterable"]
+    }
+}

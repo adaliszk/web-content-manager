@@ -1,0 +1,19 @@
+{
+    "extends": "@adaliszk/qwik",
+    "compilerOptions": {
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "allowImportingTsExtensions": true,
+        "esModuleInterop": true,
+        "types": ["astro/client", "astro-global/client", "vite/client", "vitest", "playwright"],
+        "plugins": [{ "name": "@astrojs/ts-plugin" }],
+        "outDir": "dist",
+        "baseUrl": ".",
+        "paths": {
+            "~content/*": ["content/*"],
+            "~/*": ["src/*"]
+        }
+    },
+    "include": ["*.config.ts", "content/**/*", "src/**/*"],
+    "exclude": ["node_modules"]
+}

@@ -1,23 +1,28 @@
 {
-  "private": true,
-  "description": "Monorepo for building a Content Manager extension on top of Vite and Astro",
-  "license": "BSD-2-Clause",
-  "author": "Ádám Liszkai <adam@liszkai.dev>",
-  "contributors": [],
-  "type": "module",
-  "scripts": {
-    "build": "turbo run build"
-  },
-  "devDependencies": {
-    "@adaliszk/biome": "^1.7.5",
-    "@adaliszk/typescript": "^5.4.2",
-    "@adaliszk/typescript-testing": "^5.4.3",
-    "@biomejs/biome": "^1.7.3",
-    "@swc/core": "^1.5.24",
-    "tsup": "^8.1.0",
-    "turbo": "^1.13.3",
-    "typescript": "^5.4.5",
-    "vitest": "^1.6.0",
-    "vite": "^5.2.12"
-  }
+    "private": true,
+    "license": "BSD-2-Clause",
+    "description": "Monorepo for building a Content Manager extension on top of Vite and Astro",
+    "repository": "github:adaliszk/web-content-manager",
+    "issues": "https://github.com/adaliszk/web-content-manager/issues",
+    "homepage": "https://docs.adaliszk.io/cms",
+    "author": "Ádám Liszkai <adam@liszkai.dev>",
+    "contributors": [],
+    "type": "module",
+    "scripts": {
+        "lint": "turbo run lint",
+        "build": "turbo run build"
+    },
+    "devDependencies": {
+        "@adaliszk/biome": "^1.7.5",
+        "@adaliszk/typescript": "^5.4.2",
+        "@adaliszk/typescript-testing": "^5.4.3",
+        "@adaliszk/web-compiler": "^5.2.10",
+        "@biomejs/biome": "^1.7.3",
+        "@swc/core": "^1.5.24",
+        "tsup": "^8.1.0",
+        "turbo": "^1.13.3",
+        "typescript": "^5.4.5",
+        "vitest": "^1.6.0",
+        "vite": "^5.2.12"
+    }
 }

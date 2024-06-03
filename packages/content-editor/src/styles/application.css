@@ -1,0 +1,85 @@
+:root {
+    --sidebar-width: 380px;
+    --options-width: 240px;
+    --header-height: 48px;
+}
+
+body {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) auto min(var(--options-width), 240px);
+    grid-template-rows: var(--header-height) auto;
+    grid-template-areas:
+        "brand     header   controls"
+        "sidebar   editor    options"
+}
+
+#brand, #header, #sidebar, #editor, #options {
+    @apply h-full;
+}
+
+#sidebar, #editor, #options {
+    @apply overflow-auto;
+    & > header, & > section > header {
+        @apply mb-4;
+        height: calc(var(--header-height) * 0.666);
+    }
+    & > section {
+        @apply mb-4;
+    }
+}
+
+#brand, #header, #controls {
+    @apply overflow-hidden flex flex-row items-center;
+    @apply bg-base-200;
+}
+
+#sidebar, #editor, #options {
+    @apply border-t border-base-300;
+}
+
+#sidebar, #options {
+    @apply bg-base-200;
+}
+
+#sidebar {
+    @apply flex flex-col justify-stretch items-start;
+    grid-area: sidebar;
+    overflow-y: scroll;
+    scrollbar-color: var(--fallback-b3, oklch(var(--b3))) var(--fallback-b2, oklch(var(--b2)));
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+}
+
+#sidebar > *, #sidebar > [q\:container] > * {
+    width: calc(100% + 10px);
+}
+
+#brand {
+    @apply pl-5;
+    grid-area: brand;
+}
+
+#options {
+    grid-area: options;
+}
+
+#controls {
+    @apply flex flex-row items-center justify-end;
+    grid-area: controls;
+}
+
+#header {
+    grid-area: header;
+}
+
+#editor {
+    @apply bg-transparent;
+    grid-area: editor;
+}
+
+.tabs {
+    @apply h-10;
+    & > .tab {
+        @apply h-full;
+    }
+}

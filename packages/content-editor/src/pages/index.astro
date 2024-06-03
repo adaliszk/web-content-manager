@@ -1,0 +1,59 @@
+---
+import { twMerge } from "tailwind-merge";
+import type { CollectionType } from "~/app/types.ts";
+// noinspection ES6UnusedImports - TODO: Figure out why does inspection fail to recognise the component usage
+import { Icon } from "~/externals.ts";
+// noinspection ES6UnusedImports - TODO: Figure out why does inspection fail to recognise the component usage
+import { AppContainer } from "~/layouts.ts";
+import { type EditorTab, resolveEditorTabs, routeTo } from "~/utils.ts";
+
+// noinspection JSUnusedGlobalSymbols - Used by Astro Router
+export const prerender = false;
+
+// TODO: Detect user and write a different message
+const welcomeMessage = "Welcome back!";
+
+const activeTab = Number.parseInt(Astro.url.searchParams.get("t") ?? "0");
+const editorTabs: EditorTab[] = [{ variant: "static", icon: "home" }];
+for await (const tab of resolveEditorTabs()) {
+    editorTabs.push(tab);
+}
+---
+
+<style is:global>
+    body {
+        grid-template-areas:
+            "brand     header   controls"
+            "sidebar   editor     editor"
+    }
+    #options {
+        display: none;
+    }
+</style>
+
+<AppContainer title={welcomeMessage}>
+
+    <div role="tablist" class="tabs tabs-bordered bg-base-200">
+        {editorTabs.map((tab, index) => (
+            <div role="tab" class={twMerge(
+                "tab flex flex-row items-center transition-colors duration-200 ease-in-out bg-base-200 hover:bg-base-300",
+                activeTab === index && "tab-active bg-base-300 hover:bg-base-100"
+            )}>
+                <a href={routeTo.switchTab(index)} class="flex flex-row items-center p-1">
+                    <Icon name={tab.icon} size={18} />
+                    <span class="px-2 empty:hidden">{tab?.item?.unwrap().name}</span>
+                </a>
+                {tab?.item !== undefined && (
+                    <a href={routeTo.closeEntry(tab.variant as CollectionType, tab.collectionId!, tab.entryId!)}
+                       class="p-1 rounded-full transition-colors duration-200 ease-in-out bg-transparent hover:bg-base-100">
+                        <Icon name="close" size={18} />
+                    </a>
+                )}
+            </div>
+        ))}
+        <div class="tab" />
+    </div>
+
+    HaLLO
+
+</AppContainer>

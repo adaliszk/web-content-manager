@@ -1,0 +1,104 @@
+---
+import "~/styles/global.css";
+import "~/styles/application.css";
+
+import { AppData, routeTo } from "~/app/context.ts";
+// noinspection ES6UnusedImports - TODO: Figure out why does inspection fail to recognise the component usage
+import { Collapse, CollectionManager, SearchWidget, ThemeSwitcherWidget } from "~/components.ts";
+// noinspection ES6UnusedImports - TODO: Figure out why does inspection fail to recognise the component usage
+import { AstroFont, Icon } from "~/externals.ts";
+
+const collections = (await AppData.getCollections()).unwrap();
+const fontConfigs = [
+    {
+        src: [],
+        name: "Lexend",
+        googleFontsURL:
+            "https://fonts.googleapis.com/css2??family=Lexend:wght@100..900&display=swap",
+        preload: true,
+        display: "swap",
+        selector: "body",
+        fallback: "sans-serif",
+    },
+];
+
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <AstroFont config={fontConfigs} />
+</head>
+<body>
+
+<script is:inline>
+    const savedTheme = localStorage.getItem("cmsTheme");
+    const darkMode = !savedTheme
+        ? window.matchMedia("(prefers-color-scheme: dark)").matches
+        : savedTheme === "dark";
+    const theme = darkMode ? "dark" : "light"; 
+    localStorage.setItem("cmsTheme", theme);
+    localStorage.setItem("astroErrorOverlayTheme", theme);
+    document.body.classList.add("theme-change");
+    document.body.dataset.theme = theme;
+    setTimeout(() => {
+        document.body.classList.remove("theme-change");
+    }, 100);
+</script>
+
+<!-- HEADER AREA -->
+
+<SearchWidget />
+
+<header id="brand">
+    <Icon name="brand-astro" class="mr-1 relative top-0.5" size={24} />
+    <h1 class="text-xl font-light tracking-wide">HeadlessCMS <sup class="font-thin">dev</sup></h1>
+</header>
+
+<header id="header">
+    &nbsp;
+</header>
+
+<header id="controls">
+    <ThemeSwitcherWidget id="theme-switcher">
+        <Icon name="theme-dark" class="w-5 h-5" slot="dark-icon" />
+        <Icon name="theme-light" class="w-5 h-5" slot="light-icon" />
+        <Icon name="theme-auto" class="w-5 h-5" slot="theme-icon" />
+    </ThemeSwitcherWidget>
+</header>
+
+<!-- CONTENT AREA -->
+
+<aside id="sidebar">
+    <Collapse mode={"select"} group={"sidebar"} open={true}>
+        <span slot="header" class="inline-block pl-4 text-sm flex-grow uppercase">Collections</span>
+        <a slot="header" href={routeTo.openEntry("file", "new")} class="p-1.5 pointer-events-none">
+            <Icon name="folder-plus" class="opacity-20 relative top-[-1px]" size={18} />
+        </a>
+        <a slot="header" href={routeTo.openEntry("db", "new")} class="p-1.5 mr-1.5 pointer-events-none">
+            <Icon name="database-plus" class="opacity-20" size={18} />
+        </a>
+        {collections.map(({ id }) => (
+            <CollectionManager variant={"file"} reference={`${id}`} />
+        ))}
+    </Collapse>
+</aside>
+
+<main id="editor">
+    <slot />
+</main>
+
+<aside id="options">
+    <slot name="options" />
+</aside>
+
+</body>
+</html>

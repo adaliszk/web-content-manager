@@ -1,0 +1,33 @@
+---
+// noinspection ES6UnusedImports
+import { DefaultContainer } from "~/layouts.ts";
+
+const requestUrl = Astro.request.url;
+console.log("requestUrl", requestUrl);
+
+// If we are serving from localhost, there is no need for authentication
+if (requestUrl.match(/https:\/\/(localhost|192\.168\.|172\.16\.|10\.)/gi)) {
+    return Astro.redirect("/dashboard");
+}
+---
+
+<DefaultContainer title="Who is there?">
+
+	<main class="w-72 h-56 p-4 rounded-lg shadow">
+		<h1>Who is there?</h1>
+		
+	</main>
+
+	<script type="module">
+		if (window.PasswordCredential || window.FederatedCredential) {
+			const credentials = await navigator.credentials.get({
+				federated: {
+					providers: ["https://github.com", "https://accounts.google.com", "https://facebook.com"],
+					protocols: ["openidconnect"],
+				},
+			})
+			console.log("credentials", credentials);
+		}
+	</script>
+
+</DefaultContainer>

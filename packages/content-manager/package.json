@@ -1,0 +1,43 @@
+{
+    "version": "0.2.0-dev",
+    "name": "@adaliszk/content-manager",
+    "description": "Helper library for accessing and rendering contents using ESM imports with Vite.",
+    "repository": "github:adaliszk/content-manager/packages/content-manager",
+    "license": "BSD 2-Clause",
+    "type": "module",
+    "scripts": {
+        "format": "biome format --write ./core ./integration ./internal",
+        "lint": "biome lint ./core ./integration ./internal",
+        "build": "tsup"
+    },
+    "dependencies": {
+        "change-case": "^5.4.4",
+        "chalk": "^5.3.0",
+        "inflection": "^3.0.0",
+        "simple-git": "^3.24.0",
+        "js-yaml": "^4.1.0",
+        "zod-to-ts": "^1.2.0",
+        "zod": "^3.23.6"
+    },
+    "devDependencies": {
+        "@adaliszk/std": "^0.1.0",
+        "@types/js-yaml": "^4.0.9",
+        "typescript": "^5.4.5"
+    },
+    "types": "./dist/core/index.d.ts",
+    "main": "./dist/core/index.js",
+    "exports": {
+        "./vite": {
+            "types": "./dist/integration/vite.d.ts",
+            "import": "./dist/integration/vite.js"
+        },
+        "./internal": {
+            "types": "./dist/internal/index.d.ts",
+            "import": "./dist/internal/index.js"
+        },
+        ".": {
+            "types": "./dist/core/index.d.ts",
+            "import": "./dist/core/index.js"
+        }
+    }
+}

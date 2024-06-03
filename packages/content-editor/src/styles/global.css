@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --rounded-box: 1.2rem;
+    --rounded-btn: 0.2rem;
+    --rounded-badge: 1.2rem;
+    --animation-btn: 0.1s;
+    --animation-input: 0.1s;
+    --btn-focus-scale: 1.0;
+    --border-btn: 1px;
+    --tab-border: 1px;
+    --tab-radius: 0.1rem;
+}
+
+body, html {
+    @apply min-h-dvh h-full bg-neutral;
+}
+
+body.theme-change *:has(:not([data-theme-changer])),
+body.theme-change .collapse-content {
+    @apply ease-linear duration-75 delay-0;
+    @apply transition-none;
+}

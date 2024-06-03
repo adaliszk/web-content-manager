@@ -1,0 +1,9 @@
+{
+    "$schema": "https://jsr.io/schema/config-file.v1.json",
+    "name": "@adaliszk/content-manager",
+    "version": "0.2.0-dev",
+    "exports": {
+        ".": "./core/index.ts",
+        "./vite": "./integration/vite.ts"
+    }
+}
