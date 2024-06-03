@@ -31,7 +31,7 @@ export type PathProps = {
  * Exposes the imported file contents with its data for consumption, as well as adds a few metadata fields
  * that can get handy for managing contents.
  */
-export type CollectionEntry<SCHEMA> = PathProps &
+export type CollectionEntry<SCHEMA = unknown> = PathProps &
     Partial<LatestChanges> & {
         id: ULIDLike;
         path: string;
