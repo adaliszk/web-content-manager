@@ -1,0 +1,32 @@
+# Editors
+/.idea
+/.vscode
+
+# Generated files
+**/content/**/*.schema.json
+**/content/**/index.ts
+
+# Tools
+**/.astro
+**/.wrangler
+
+# Build
+/target
+**/.turbo
+**/dist
+**/server
+**/lib
+
+# Node
+**/node_modules
+/node_modules
+
+# Logs
+**/*.log*
+*.log*
+
+# Environment
+**/.env*
+**/.env
+.env*
+.env

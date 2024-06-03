@@ -1,0 +1,18 @@
+{
+    "$schema": "https://turborepo.org/schema.json",
+    "pipeline": {
+        "lint": {
+            "outputMode": "errors-only"
+        },
+        "build-deps": {
+            "outputMode": "errors-only",
+            "dependsOn": ["^lint", "^build"],
+            "outputs": ["dist/**"]
+        },
+        "build": {
+            "outputMode": "errors-only",
+            "dependsOn": ["build-deps"],
+            "outputs": ["dist/**"]
+        }
+    }
+}
