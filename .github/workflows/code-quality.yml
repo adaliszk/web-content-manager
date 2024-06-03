@@ -15,7 +15,6 @@ jobs:
       - uses: ./.github/actions/setup-env
       - uses: jetbrains/qodana-action@v2024.1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
         with:
           upload-result: true
@@ -23,7 +22,7 @@ jobs:
         with:
           sarif_file: ${{ runner.temp }}/qodana/results/qodana.sarif.json
 
-  turbo:
+  biome:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
