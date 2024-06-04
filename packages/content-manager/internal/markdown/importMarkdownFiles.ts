@@ -1,7 +1,7 @@
-import type { CollectionEntry, LatestChanges } from "../../core/index.js";
-import type { MarkdownImport } from "./types.js";
+import type { CollectionEntry } from "../../core/index.ts";
+import type { MarkdownImport } from "./types.ts";
 
-type ImportDefinition = MarkdownImport & Partial<LatestChanges>;
+type ImportDefinition = MarkdownImport & Partial<CollectionEntry>;
 
 /**
  * Lightweight import mapper to enrich types automatically

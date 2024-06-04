@@ -33,7 +33,7 @@ export type PathProps = {
  */
 export type CollectionEntry<SCHEMA = unknown> = PathProps &
     Partial<LatestChanges> & {
-        id: ULIDLike;
+        id: string;
         path: string;
         file: `${string}.${FileExtension}`;
         ext: FileExtension;
