@@ -17,7 +17,7 @@
         "@adaliszk/content-manager": "workspace:*"
     },
     "dependencies": {
-        "@builder.io/qwik": "1.5.2",
+        "@builder.io/qwik": "1.5.5",
         "astro-global": "^1.2.1",
         "astro-font": "^0.0.81",
         "astro-icon": "^1.1.0",
