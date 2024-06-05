@@ -5,19 +5,15 @@ import { twMerge } from "tailwind-merge";
 export type CollapseProps = PropsOf<"section"> & {
     mode: "toggle" | "select" | "focus";
     group: string;
-    value: string;
     open?: boolean;
 };
 
 export const Collapse = component$<CollapseProps>(
-    ({ mode, group, value, open, class: classList, ...props }) => {
+    ({ mode, group, open, class: classList, ...props }) => {
         const inputId = `${group}-input`;
-        // ! TODO: Remember the state using a nano-store
         const ControlFlow = matchByValue(mode, {
-            select: () => (
-                <input id={inputId} type={"radio"} name={group} value={value} class={"hidden"} />
-            ),
-            toggle: () => <input id={inputId} type={"checkbox"} value={value} class={"hidden"} />,
+            select: () => <input id={inputId} type={"radio"} name={group} class={"hidden"} />,
+            toggle: () => <input id={inputId} type={"checkbox"} class={"hidden"} />,
             focus: () => "",
         }).unwrap() as string; // TODO: Drop type casting once the std types are resolved correctly
 
