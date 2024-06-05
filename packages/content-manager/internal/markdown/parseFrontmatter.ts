@@ -1,11 +1,12 @@
 import type { Result } from "@adaliszk/std";
 import type { YAMLException } from "js-yaml";
-import type { ZodError, ZodSchema, z } from "zod";
+import type { ZodError, ZodSchema, ZodUnion, z } from "zod";
 
 import { createReadStream } from "node:fs";
 import { createInterface as createLineReader } from "node:readline";
 import { createErr, createOk } from "@adaliszk/std";
 import { load as parseYaml } from "js-yaml";
+import type { MinimalCollectionEntry } from "../../core/index.ts";
 
 type FrontmatterParserArgs<SCHEMA extends ZodSchema> = {
     fileName: `${string}.${"md" | "mdx"}`;
@@ -19,7 +20,7 @@ export async function parseFrontmatter<SCHEMA extends ZodSchema>({
     fileName,
     schema,
 }: FrontmatterParserArgs<SCHEMA>): Promise<
-    Result<z.infer<SCHEMA>, YAMLException | ZodError | Error>
+    Result<z.infer<ZodSchema> & MinimalCollectionEntry, YAMLException | ZodError | Error>
 > {
     try {
         const frontmatter = await extractFrontmatter(fileName);

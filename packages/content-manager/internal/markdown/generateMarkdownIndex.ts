@@ -3,6 +3,7 @@ import type { ZodSchema } from "zod";
 import type {
     CollectionEntry,
     LatestChanges,
+    MinimalCollectionEntry,
     ParsedCollectionDefinition,
     RegExpression,
 } from "../../core/index.ts";
@@ -48,7 +49,7 @@ export async function generateMarkdownIndex<SCHEMA extends ZodSchema>({
         return indexFile;
     };
 
-    type CollectionData = Omit<CollectionEntry<SCHEMA>, "Content">;
+    type CollectionData = Omit<CollectionEntry<SCHEMA & MinimalCollectionEntry>, "Content">;
 
     const map = new Map<string, CollectionData>();
     for await (const { fileName, props } of fileEntries) {
@@ -84,10 +85,11 @@ export async function generateMarkdownIndex<SCHEMA extends ZodSchema>({
     const entries = entryList.map(([key, entry]) =>
         [
             `"${key}": {`,
+            `    ...(await import("./${entry.file}")),`,
             `    id: "${entry.id}",`,
             `    name: ${JSON.stringify(entry.name)},`,
             `    path: ${JSON.stringify(entry.path)},`,
-            // `    file: ${JSON.stringify(entry.file)},`,
+            `    file: ${JSON.stringify(entry.file)},`,
             `    ext: ${JSON.stringify(entry.ext)},`,
             `    langCode: ${JSON.stringify(entry.langCode)},`,
             `    sortIndex: ${JSON.stringify(entry.sortIndex)},`,
@@ -96,7 +98,6 @@ export async function generateMarkdownIndex<SCHEMA extends ZodSchema>({
             `    updatedBy: ${JSON.stringify(entry.updatedBy)},`,
             `    updateMessage: "${entry.updateMessage}",`,
             `    updateCommit: "${entry.updateCommit}",`,
-            `    ...(await import("./${entry.file}")),`,
             "},",
         ].join("\n"),
     );

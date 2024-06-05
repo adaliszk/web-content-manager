@@ -1,10 +1,11 @@
 import type { ULIDLike } from "@adaliszk/std";
-import type { ZodSchema, z } from "zod";
+import { type ZodSchema, type ZodUnion, z } from "zod";
 import type { RegExpression } from "./regexp.js";
 
 import { basename } from "node:path";
 import { capitalize, pluralize } from "inflection";
-import { ObjectType, md5, uid } from "../internal/index.js";
+import { ObjectType, md5, uid } from "../internal/index.ts";
+import { type MinimalCollectionEntry, MinimalCollectionEntrySchema } from "./collectionSchema.ts";
 
 type FileExtension = "md" | "mdx" | "json" | "yaml";
 
@@ -31,17 +32,18 @@ export type PathProps = {
  * Exposes the imported file contents with its data for consumption, as well as adds a few metadata fields
  * that can get handy for managing contents.
  */
-export type CollectionEntry<SCHEMA = unknown> = PathProps &
-    Partial<LatestChanges> & {
-        id: string;
-        path: string;
-        file: `${string}.${FileExtension}`;
-        ext: FileExtension;
-        data: SCHEMA;
-        Content: () => string;
-        createdAt: Date;
-        updatedAt: Date;
-    };
+export type CollectionEntry<SCHEMA extends MinimalCollectionEntry = MinimalCollectionEntry> =
+    PathProps &
+        Partial<LatestChanges> & {
+            id: string;
+            path: string;
+            file: `${string}.${FileExtension}`;
+            ext: FileExtension;
+            data: SCHEMA;
+            Content: () => string;
+            createdAt: Date;
+            updatedAt: Date;
+        };
 
 /**
  * Defines an index using the available data from the files
@@ -73,7 +75,7 @@ export type CollectionIndex<
  * Guides the definition of collections by giving it a shape, and exposes hooks into the indexing process.
  */
 export type CollectionDefinition<
-    SCHEMA extends ZodSchema,
+    SCHEMA extends ZodSchema = ZodSchema,
     INDEX = CollectionIndex<SCHEMA>,
     ENTRY = CollectionEntry<z.infer<SCHEMA>>,
 > = {
@@ -119,14 +121,17 @@ export type CollectionDefinition<
 /**
  * Instrumented collection definition for easy export filtering.
  */
-export type ParsedCollectionDefinition<SCHEMA extends ZodSchema = ZodSchema> =
-    CollectionDefinition<SCHEMA> & {
-        __type: ObjectType.CollectionDefinition;
-        id: ULIDLike;
-        name: Capitalize<string> | string;
-        exportName: string;
-        rootDir: string;
-    };
+export type ParsedCollectionDefinition<SCHEMA extends ZodSchema = ZodSchema> = Omit<
+    CollectionDefinition<SCHEMA>,
+    "schema"
+> & {
+    __type: ObjectType.CollectionDefinition;
+    id: ULIDLike;
+    name: Capitalize<string> | string;
+    schema: ZodUnion<[typeof MinimalCollectionEntrySchema, SCHEMA]>;
+    exportName: string;
+    rootDir: string;
+};
 
 /**
  * Create a collection definition for your content.
@@ -150,6 +155,7 @@ export function defineCollection<SCHEMA extends ZodSchema>(
         ...definition,
         name: capitalize(definition?.name ?? basename(rootDir)) as Capitalize<string>,
         id: uid(md5(rootDir)),
+        schema: z.union([MinimalCollectionEntrySchema, definition.schema]),
         exportName: pluralize(rootDir),
         rootDir,
     };
