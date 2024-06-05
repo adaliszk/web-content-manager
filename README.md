@@ -1,6 +1,6 @@
 !['Tests Status'](https://img.shields.io/github/actions/workflow/status/adaliszk/web-content-manager/code-quality.yml?style=for-the-badge&label=TESTS)
 
-> WORK IN PROGRESS!  
+> [!WARNING]
 > This project is still in the early stages of development and is not ready for production use yet.
 
 # Headless Content Manager for your Web Project
