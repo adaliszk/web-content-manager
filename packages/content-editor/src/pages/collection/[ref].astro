@@ -1,0 +1,17 @@
+---
+import { type CollectionResult, resolvePathReference } from "~/app/context.ts";
+import { AppContainer } from "~/layouts.ts";
+
+type Params = Record<"ref", string>;
+
+const { ref } = Astro.params as Params;
+const { item } = await resolvePathReference<CollectionResult>(ref);
+const collection = item?.unwrap();
+const title = collection?.name ?? "Creating a new collection...";
+---
+
+<AppContainer title={title}>
+    
+    <h2>COLLECTION</h2>
+    
+</AppContainer>

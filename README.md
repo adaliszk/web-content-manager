@@ -36,7 +36,7 @@ whatever without the CMS making assumptions on how to "best" do that.
 - [ ] MVP body and frontmatter editor
   - [ ] Main editor with a mix of notion blocks and obsidian inline editables
   - [ ] Frontmatter manager with dynamic forms
-  - [ ] Notion-block level "intellisense" plugins
+  - [x] Notion-block level "intellisense" plugins
   - [ ] Content component extensions
 - [ ] Refactor API to expose integrations
 - [ ] Automate the release process

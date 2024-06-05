@@ -1,5 +1,11 @@
 // noinspection JSUnusedGlobalSymbols
 
+import "@adaliszk/std/prelude";
+
+declare module "*.astro" {
+    export default (props?: object) => string;
+}
+
 declare global {
     interface Window {
         FederatedCredential?: boolean;

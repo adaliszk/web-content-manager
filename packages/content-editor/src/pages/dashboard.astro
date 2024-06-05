@@ -1,0 +1,23 @@
+---
+import { AppContainer } from "~/layouts.ts";
+
+// TODO: Detect user and write a different message
+const welcomeMessage = "Welcome back!";
+---
+
+<style is:global>
+    body {
+        grid-template-areas:
+            "brand     header   controls"
+            "sidebar   editor     editor"
+    }
+    #options {
+        display: none;
+    }
+</style>
+
+<AppContainer title={welcomeMessage}>
+    
+    <h2>DASHBOARD</h2>
+    
+</AppContainer>

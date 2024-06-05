@@ -1,12 +1,13 @@
 {
     "extends": "@adaliszk/qwik",
     "compilerOptions": {
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext",
-        "allowImportingTsExtensions": true,
-        "esModuleInterop": true,
+        "module": "ES2022",
+        "moduleResolution": "Bundler",
+        "lib": ["es2020", "DOM"],
         "types": ["astro/client", "astro-global/client", "vite/client", "vitest", "playwright"],
         "plugins": [{ "name": "@astrojs/ts-plugin" }],
+        "allowImportingTsExtensions": true,
+        "esModuleInterop": true,
         "outDir": "dist",
         "baseUrl": ".",
         "paths": {

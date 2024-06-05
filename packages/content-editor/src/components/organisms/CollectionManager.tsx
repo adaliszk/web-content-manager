@@ -1,16 +1,21 @@
-import type { ULIDLike } from "@adaliszk/std";
+import { type ULIDLike, createULIDLike } from "@adaliszk/std";
 import { type PropsOf, Resource, component$, useResource$ } from "@builder.io/qwik";
 import { twMerge } from "tailwind-merge";
 import { AppData, routeTo } from "~/app/context.ts";
-import type { CollectionReference, CollectionType } from "~/app/types.ts";
-import { Collapse, CollectionManagerEntry, Select } from "~/components.ts";
-import { Icon } from "~/icons.tsx";
+import type {
+    CollectionReference,
+    CollectionType,
+    ParsedCollectionDefinition,
+} from "~/app/types.ts";
+import { Collapse, CollectionManagerEntry, Icon, Select } from "~/components.ts";
 
 export type CollectionDefinitionProps = PropsOf<"section"> & {
     variant: CollectionType;
     reference: CollectionReference;
     indexNames?: string[];
 };
+
+export type CollectionDefinitionItem = Pick<ParsedCollectionDefinition, "id" | "name" | "format">;
 
 export type CollectionEntryItem = {
     id: ULIDLike;
@@ -29,13 +34,14 @@ export const CollectionManager = component$<CollectionDefinitionProps>(
                     track(() => reference);
 
                     const { id, name, format } = (await AppData.getCollection(reference)).unwrap();
+                    const rawCollection = { id, name, format } satisfies CollectionDefinitionItem;
                     const entries: CollectionEntryItem[] = [];
 
                     for await (const entry of AppData.getEntries(reference)) {
                         if (entry.isOk()) {
                             const { id, createdAt, updatedAt, data } = entry.unwrap();
                             entries.push({
-                                id,
+                                id: id.toString(),
                                 createdAt,
                                 updatedAt,
                                 data,
@@ -43,7 +49,8 @@ export const CollectionManager = component$<CollectionDefinitionProps>(
                         }
                     }
 
-                    return { collection: { id: id.toString(), name, format }, entries };
+                    const collection = { ...rawCollection, id: rawCollection.id.toString() };
+                    return { collection, entries };
                 })}
                 onPending={() => <p>Loading...</p>}
                 onResolved={({ collection, entries }) => (
@@ -88,7 +95,7 @@ export const CollectionManager = component$<CollectionDefinitionProps>(
                         )}
                         <a
                             q:slot={"header"}
-                            href={routeTo.openEntry(variant, "new")}
+                            href={routeTo.openTab(variant, "new")}
                             class={twMerge(
                                 "p-1.5 bg-transparent border border-transparent rounded",
                                 "opacity-5 group-hover:opacity-100 transition-opacity duration-150",
@@ -97,7 +104,7 @@ export const CollectionManager = component$<CollectionDefinitionProps>(
                         </a>
                         <a
                             q:slot={"header"}
-                            href={routeTo.openEntry(variant, collection.id)}
+                            href={routeTo.openTab(variant, createULIDLike(collection.id).unwrap())}
                             class={twMerge(
                                 "p-1.5 bg-transparent border border-transparent rounded",
                                 "opacity-5 group-hover:opacity-100 transition-opacity duration-150",

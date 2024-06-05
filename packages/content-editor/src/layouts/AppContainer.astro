@@ -2,11 +2,14 @@
 import "~/styles/global.css";
 import "~/styles/application.css";
 
+import { twMerge } from "tailwind-merge";
 import { AppData, routeTo } from "~/app/context.ts";
+import { CollectionType } from "~/app/types.ts";
 // noinspection ES6UnusedImports - TODO: Figure out why does inspection fail to recognise the component usage
 import { Collapse, CollectionManager, SearchWidget, ThemeSwitcherWidget } from "~/components.ts";
 // noinspection ES6UnusedImports - TODO: Figure out why does inspection fail to recognise the component usage
 import { AstroFont, Icon } from "~/externals.ts";
+import { type EditorTab, resolveEditorTabs } from "~/router.ts";
 
 const collections = (await AppData.getCollections()).unwrap();
 const fontConfigs = [
@@ -26,7 +29,15 @@ interface Props {
     title: string;
 }
 
+const { ref } = Astro.params;
 const { title } = Astro.props;
+
+const editorTabs: EditorTab[] = [{ variant: "static", icon: "home", page: "dashboard" }];
+for await (const tab of resolveEditorTabs(ref)) {
+    editorTabs.push(tab);
+}
+// const currentTabIndex = Number.parseInt(Astro.url.searchParams.get("t") ?? "0");
+const currentTabIndex = editorTabs.length - 1;
 ---
 <html lang="en">
 <head>
@@ -80,10 +91,10 @@ const { title } = Astro.props;
 <aside id="sidebar">
     <Collapse mode={"select"} group={"sidebar"} open={true}>
         <span slot="header" class="inline-block pl-4 text-sm flex-grow uppercase">Collections</span>
-        <a slot="header" href={routeTo.openEntry("file", "new")} class="p-1.5 pointer-events-none">
+        <a slot="header" href={routeTo.openTab("file", "new")} class="p-1.5 pointer-events-none">
             <Icon name="folder-plus" class="opacity-20 relative top-[-1px]" size={18} />
         </a>
-        <a slot="header" href={routeTo.openEntry("db", "new")} class="p-1.5 mr-1.5 pointer-events-none">
+        <a slot="header" href={routeTo.openTab("db", "new")} class="p-1.5 mr-1.5 pointer-events-none">
             <Icon name="database-plus" class="opacity-20" size={18} />
         </a>
         {collections.map(({ id }) => (
@@ -92,8 +103,30 @@ const { title } = Astro.props;
     </Collapse>
 </aside>
 
-<main id="editor">
-    <slot />
+<main id="editor" class="flex flex-col justify-stretch items-stretch">
+    <div role="tablist" class="tabs tabs-bordered bg-base-200">
+        {editorTabs.map((tab, index) => (
+                <div role="tab" class={twMerge(
+                    "tab flex flex-row items-center transition-colors duration-200 ease-in-out bg-base-200 hover:bg-base-300",
+                    currentTabIndex === index && "tab-active bg-base-300 hover:bg-base-100"
+                )}>
+                    <a href={routeTo.switchPage(tab.page)} class="flex flex-row items-center p-1">
+                        <Icon name={tab.icon} size={18} />
+                        <span class="px-2 empty:hidden">{tab?.item?.unwrap().name}</span>
+                    </a>
+                    {tab?.item !== undefined && (
+                            <a href={routeTo.closeTab(tab.variant as CollectionType, tab.collectionId!, tab.entryId!)}
+                               class="p-1 rounded-full transition-colors duration-200 ease-in-out bg-transparent hover:bg-base-100">
+                                <Icon name="close" size={18} />
+                            </a>
+                    )}
+                </div>
+        ))}
+        <div class="tab" />
+    </div>
+    <div role="tabpanel" class="flex-grow overflow-y-scroll overflow-x-visible">
+        <slot />
+    </div>
 </main>
 
 <aside id="options">

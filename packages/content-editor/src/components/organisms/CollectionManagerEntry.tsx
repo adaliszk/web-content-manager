@@ -2,8 +2,8 @@ import { createULIDLike } from "@adaliszk/std";
 import { type PropsOf, component$ } from "@builder.io/qwik";
 import { twMerge } from "tailwind-merge";
 import type { CollectionReference, CollectionType } from "~/app/types.ts";
-import { Icon } from "~/icons.tsx";
-import { routeTo } from "~/utils.ts";
+import { Icon } from "~/components.ts";
+import { routeTo } from "~/router.ts";
 import type { CollectionEntryItem } from "./CollectionManager.tsx";
 
 export type CollectionEntryProps = PropsOf<"article"> & {
@@ -26,7 +26,7 @@ export const CollectionManagerEntry = component$<CollectionEntryProps>(
                     <Icon name={"file"} size={18} />
                 </div>
                 <a
-                    href={routeTo.openEntry(variant, createULIDLike(collection).unwrap(), entry.id)}
+                    href={routeTo.openTab(variant, createULIDLike(collection).unwrap(), entry.id)}
                     class={twMerge(
                         "flex-grow",
                         "opacity-80 dark:opacity-60 group-hover:opacity-100 transition-opacity duration-150",

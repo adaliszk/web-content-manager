@@ -18,7 +18,7 @@ body {
 }
 
 #sidebar, #editor, #options {
-    @apply overflow-auto;
+    @apply overflow-y-scroll overflow-x-visible;
     & > header, & > section > header {
         @apply mb-4;
         height: calc(var(--header-height) * 0.666);
@@ -35,19 +35,19 @@ body {
 
 #sidebar, #editor, #options {
     @apply border-t border-base-300;
+    scrollbar-gutter: auto;
+    scrollbar-width: thin;
 }
 
 #sidebar, #options {
     @apply bg-base-200;
+    scrollbar-color: var(--fallback-b3, oklch(var(--b3))) var(--fallback-b2, oklch(var(--b2)));
 }
 
 #sidebar {
     @apply flex flex-col justify-stretch items-start;
     grid-area: sidebar;
     overflow-y: scroll;
-    scrollbar-color: var(--fallback-b3, oklch(var(--b3))) var(--fallback-b2, oklch(var(--b2)));
-    scrollbar-gutter: stable;
-    scrollbar-width: thin;
 }
 
 #sidebar > *, #sidebar > [q\:container] > * {
@@ -75,6 +75,7 @@ body {
 #editor {
     @apply bg-transparent;
     grid-area: editor;
+    scrollbar-color: var(--fallback-nc, oklch(var(--nc))) var(--fallback-b1, oklch(var(--b1)));
 }
 
 .tabs {

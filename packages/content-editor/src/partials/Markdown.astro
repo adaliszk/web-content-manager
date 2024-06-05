@@ -1,0 +1,12 @@
+---
+const prerender = false;
+const partial = true;
+
+type Props = {
+    renderer: () => string;
+};
+
+const { renderer: Content } = Astro.props;
+---
+
+<Content />

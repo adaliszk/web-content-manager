@@ -1,0 +1,47 @@
+---
+import { join } from "node:path";
+import { Agent, setGlobalDispatcher } from "undici";
+import { type CollectionEntry, type EntryResult, resolvePathReference } from "~/app/context.ts";
+import { MarkdownEditor } from "~/components.ts";
+import { AppContainer } from "~/layouts.ts";
+import MarkdownContent from "./[ref]/render.astro";
+
+type Params = Record<"ref", string>;
+
+const { ref } = Astro.params as Params;
+const { parent, item } = await resolvePathReference<EntryResult>(ref);
+const collection = parent?.unwrap();
+const entry = item?.unwrap();
+if (!collection) {
+    throw new Error("The collection is not defined!");
+}
+
+const filename = (entry: CollectionEntry) => join(collection.rootDir, entry.path, entry.file);
+const title = entry ? `Editing: ${filename(entry)}` : "Creating a new entry...";
+
+const siteUrl = new URL(Astro.url);
+const renderUrl = new URL(`${siteUrl.href}/render`, siteUrl);
+console.log("renderUrl", renderUrl);
+
+const agent = new Agent({
+    connect: {
+        rejectUnauthorized: false,
+    },
+});
+
+setGlobalDispatcher(agent);
+
+const content = await fetch(renderUrl)
+    .catch((res) => {
+        console.error("Failed to fetch", renderUrl, res);
+        return new Response(`Failed to fetch ${renderUrl}: ${res.code}`);
+    })
+    .then((res) => res.text())
+    .catch(() => "Start here...");
+---
+
+<AppContainer title={title}>
+
+    <MarkdownEditor {content} />
+    
+</AppContainer>

@@ -17,13 +17,15 @@
         "@adaliszk/content-manager": "workspace:*"
     },
     "dependencies": {
-        "@builder.io/qwik": "1.5.5",
+        "@builder.io/qwik": "^1.5.5",
         "astro-global": "^1.2.1",
         "astro-font": "^0.0.81",
         "astro-icon": "^1.1.0",
         "astro": "^4.9.2",
         "daisyui": "^4.11.1",
-        "undici": "^6.18.1"
+        "jsdom": "^24.1.0",
+        "undici": "^6.18.1",
+        "ulid": "^2.3.0"
     },
     "devDependencies": {
         "@adaliszk/std": "^0.1.0",
@@ -34,10 +36,11 @@
         "@astrojs/tailwind": "^5.1.0",
         "@astrojs/ts-plugin": "^1.8.0",
         "@qwikdev/astro": "^0.5.15",
+        "@types/jsdom": "^21.1.7",
         "date-fns": "^3.6.0",
         "pino-pretty": "^11.1.0",
         "pino": "^9.1.0",
-        "tailwind-merge": "^2.3.0",
-        "tailwindcss": "^3.4.3"
+        "tailwindcss": "^3.4.3",
+        "tailwind-merge": "^2.3.0"
     }
 }

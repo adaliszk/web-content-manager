@@ -32,7 +32,6 @@ const colors = {
 // noinspection JSUnusedGlobalSymbols
 export default {
     content: ["./src/**/*.{astro,css,tsx}"],
-    // @ts-expect-error - works fine, but daisy needs a type update
     plugins: [daisyui],
     darkMode: "selector",
     daisyui: {
@@ -44,8 +43,12 @@ export default {
             transparent: "transparent",
             black: "#000000",
             white: "#ffffff",
+            primary: colors.palatinate,
             ...colors,
         },
         extend: {},
+        groupLevel: 3,
+        groupScope: "scope",
+        groupVariants: ["hover", "focus"],
     },
 } satisfies Config;

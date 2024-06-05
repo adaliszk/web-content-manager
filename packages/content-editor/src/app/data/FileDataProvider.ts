@@ -1,5 +1,4 @@
 import type { CollectionEntry, ParsedCollectionDefinition } from "@adaliszk/content-manager";
-import type { ZodSchema } from "zod";
 import type { CollectionReference, DataSource, EntryReference } from "./types.ts";
 
 import { resolve } from "node:path";
@@ -29,21 +28,21 @@ export class FileDataProvider implements DataSource {
         return createOk(this.collectionsDefinitions);
     }
 
-    async getCollection<SCHEMA extends ZodSchema>(
+    async getCollection(
         collectionRef: CollectionReference,
-    ): Promise<Result<ParsedCollectionDefinition<SCHEMA>, Error>> {
+    ): Promise<Result<ParsedCollectionDefinition, Error>> {
         const collection = this.collectionMap.get(`${collectionRef}`);
         if (!collection) {
             return createErr(new Error("Could not find the requested Collection!"));
         }
 
-        return createOk(collection as ParsedCollectionDefinition<SCHEMA>);
+        return createOk(collection as ParsedCollectionDefinition);
     }
 
-    async *getEntries<SCHEMA extends ZodSchema>(
+    async *getEntries(
         collectionRef: CollectionReference,
-    ): AsyncGenerator<Result<CollectionEntry<SCHEMA>, Error>> {
-        const indexEntries = (await this.importCollectionIndex<SCHEMA>(collectionRef)).unwrap();
+    ): AsyncGenerator<Result<CollectionEntry, Error>> {
+        const indexEntries = (await this.importCollectionIndex(collectionRef)).unwrap();
         if (!indexEntries || indexEntries.size === 0) {
             this.log.error({ collectionRef, indexEntries }, "There are no entries to retrieve!");
             return createErr(
@@ -56,10 +55,10 @@ export class FileDataProvider implements DataSource {
         }
     }
 
-    async getEntry<SCHEMA extends ZodSchema>(
+    async getEntry(
         collectionRef: CollectionReference,
         entryRef: EntryReference,
-    ): Promise<Result<CollectionEntry<SCHEMA>, Error>> {
+    ): Promise<Result<CollectionEntry, Error>> {
         const collection = (await this.importCollectionIndex(collectionRef.toString())).unwrapOr(
             undefined,
         );
@@ -72,16 +71,16 @@ export class FileDataProvider implements DataSource {
             return createErr(new Error("Could not find the requested Entry!"));
         }
 
-        return createOk(entry as CollectionEntry<SCHEMA>);
+        return createOk(entry);
     }
 
     private get rootPath(): string {
         return this.contentPath;
     }
 
-    private async importCollectionIndex<SCHEMA extends ZodSchema>(
+    private async importCollectionIndex(
         collection: CollectionReference,
-    ): Promise<Result<Map<EntryReference, CollectionEntry<SCHEMA>>, Error>> {
+    ): Promise<Result<Map<EntryReference, CollectionEntry>, Error>> {
         const definition = this.collectionMap.get(`${collection}`);
         if (!definition) {
             return createErr(
@@ -94,7 +93,7 @@ export class FileDataProvider implements DataSource {
         const indexFile = resolve(this.rootPath, definition.rootDir, "index.ts");
         const index = await import(/* @vite-ignore */ indexFile);
         this.log.debug({ indexFile, exports: Object.keys(index) }, "Collection index imported");
-        const indexEntries = index._byId as Map<EntryReference, CollectionEntry<SCHEMA>>;
+        const indexEntries = index._byId as Map<EntryReference, CollectionEntry>;
 
         return createOk(indexEntries);
     }

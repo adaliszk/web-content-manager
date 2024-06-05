@@ -1,0 +1,20 @@
+---
+const prerender = false;
+const partial = true;
+
+import { type EntryResult, resolvePathReference } from "~/app/context.ts";
+
+type Params = Record<"ref", string>;
+
+const { ref } = Astro.params as Params;
+const { parent, item } = await resolvePathReference<EntryResult>(ref);
+const collection = parent?.unwrap();
+const entry = item?.unwrap();
+if (!collection) {
+    throw new Error("The collection is not defined!");
+}
+
+const Content = entry?.Content ?? (() => "<p>Start here...</p>");
+---
+
+<Content />
