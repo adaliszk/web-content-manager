@@ -1,4 +1,4 @@
-name: Auto-Merging Rules
+name: Auto-Merging
 on: pull_request
 
 permissions:
