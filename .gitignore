@@ -30,3 +30,7 @@ docs/src/content/**/index.ts
 **/.env
 .env*
 .env
+
+# moon
+.moon/cache
+.moon/docker

@@ -1,0 +1,17 @@
+# https://moonrepo.dev/docs/config/project
+$schema: 'https://moonrepo.dev/schemas/project.json'
+language: 'typescript'
+stack: 'frontend'
+type: 'application'
+tasks:
+  build:
+    command: pnpm build
+    inputs:
+      - 'assets/**/*'
+      - 'content/**/*.mdx'
+      - 'content/**/*.ts'
+      - 'src/**/*.astro'
+      - 'src/**/*.tsx'
+      - 'src/**/*.ts'
+    outputs:
+      - 'dist/**/*'

@@ -1,0 +1,17 @@
+# https://moonrepo.dev/docs/config/project
+$schema: 'https://moonrepo.dev/schemas/project.json'
+language: 'typescript'
+stack: 'backend'
+type: 'library'
+tasks:
+  build:
+    command: pnpm build
+    inputs:
+      - 'core/**/*.ts'
+    outputs:
+      - 'dist/**/*.d.ts'
+      - 'dist/**/*.js'
+  watch:
+    extends: build
+    args: '--watch'
+    local: true

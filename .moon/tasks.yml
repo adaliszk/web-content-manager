@@ -1,0 +1,23 @@
+# https://moonrepo.dev/docs/config/tasks
+$schema: 'https://moonrepo.dev/schemas/tasks.json'
+implicitDeps:
+  - '^:lint'
+  - '^:build'
+implicitInputs:
+  - 'package.json'
+  - 'jsr.json'
+tasks:
+  format:
+    command: pnpm format
+  lint:
+    command: pnpm lint
+  release-npm:
+    command: pnpm publish --access public
+  release-jsr:
+    command: pnpm dlx jsr publish
+  release:
+    deps:
+      - '^:format'
+      - '^:build'
+      - release-npm
+      - release-jsr
