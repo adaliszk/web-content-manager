@@ -17,13 +17,10 @@ runs:
       with:
         run_install: false
     -
-      name: Configure Moonrepo Tooling
-      uses: moonrepo/setup-proto@v0
-    -
-      name: Install Monorepo Dependencies
-      shell: bash
-      run: |
-        proto use
+      name: Configure Moonrepo Toolchain
+      uses: moonrepo/setup-toolchain@v0
+      with:
+        auto-install: true
     -
       name: Retrieve PNPM store directory
       shell: bash
