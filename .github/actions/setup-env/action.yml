@@ -17,6 +17,14 @@ runs:
       with:
         run_install: false
     -
+      name: Configure Moonrepo Tooling
+      uses: moonrepo/setup-proto@v0
+    -
+      name: Install Monorepo Dependencies
+      shell: bash
+      run: |
+        proto use
+    -
       name: Retrieve PNPM store directory
       shell: bash
       run: |
@@ -30,7 +38,7 @@ runs:
         restore-keys: |
           ${{ runner.os }}-pnpm-store-
     -
-      name: Install dependencies
+      name: Install NPM dependencies
       shell: bash
       run: |
         pnpm install --frozen-lockfile
