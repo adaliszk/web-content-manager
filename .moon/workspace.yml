@@ -4,4 +4,3 @@ versionConstraint: '>=1.25'
 projects:
   plugin: './packages/content-manager'
   editor: './packages/content-editor'
-  docs: './docs'

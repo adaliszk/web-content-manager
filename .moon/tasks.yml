@@ -2,7 +2,6 @@
 $schema: 'https://moonrepo.dev/schemas/tasks.json'
 implicitDeps:
   - '^:lint'
-  - '^:build'
 implicitInputs:
   - 'package.json'
   - 'jsr.json'
