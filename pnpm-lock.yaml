@@ -39,8 +39,8 @@ importers:
   docs:
     dependencies:
       '@astrojs/starlight':
-        specifier: ^0.23.2
-        version: 0.23.2(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))
+        specifier: ^0.24.1
+        version: 0.24.1(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))
       astro:
         specifier: ^4.8.6
         version: 4.9.2(@types/node@20.14.2)(typescript@5.4.5)
@@ -150,8 +150,8 @@ importers:
         version: 1.2.0(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@adaliszk/std':
-        specifier: ^0.3.1
-        version: 0.3.1
+        specifier: ^0.1.0
+        version: 0.1.0
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -174,9 +174,6 @@ packages:
 
   '@adaliszk/std@0.1.0':
     resolution: {integrity: sha512-z/RJLnr3gFo96Uv8EWnksqAmlTH8StG0IKhu2m91P48/M4vq+inQ4tZwFIhoRJxD0Kuvw65Rp0+RITCv1W+TWg==}
-
-  '@adaliszk/std@0.3.1':
-    resolution: {integrity: sha512-atyU/wxHAX8hb4JgnElRZ5HjeR3T3qlxPYq2KEv6TqvN1iGA5e4DdnOoFI+2xfERoFIWax0VcZpXIgkclPs4Rg==}
 
   '@adaliszk/typescript-testing@5.4.4':
     resolution: {integrity: sha512-eu4RrSjZ9JkjiWUzwN8rTHeziBqAFTLLJa4L/7z2e5YOGcX/9VXYJZ67Rybrl292ExWzg/ih2p142ofkOIwS9Q==}
@@ -250,8 +247,8 @@ packages:
   '@astrojs/sitemap@3.1.5':
     resolution: {integrity: sha512-GLdzJ01387Uzb8RKYpsYLlg/GzoPnGbmDeQNkarSE11i2+l9Qp8Nj/WoTEy9nkTS25fxxy0kxDfJmreeVleCqg==}
 
-  '@astrojs/starlight@0.23.2':
-    resolution: {integrity: sha512-j8odYR744qCilip9s0UXNzDQ66uu1klD24zRI5Aqzxoj01eVnAsEgDPC8rU/gDTvydKWhF5diBRC1QVDN5JIYw==}
+  '@astrojs/starlight@0.24.1':
+    resolution: {integrity: sha512-5wuIdF8PfDpzEEjfNcmffDDLbi2GWT0XCJH9pk+Pw5+yftwC9QdGzYrY9Ui9kIaXcODlwvL62L04kHB50j4lhw==}
     peerDependencies:
       astro: ^4.8.6
 
@@ -4773,13 +4770,6 @@ snapshots:
       option-t: 43.2.1
       zod: 3.23.8
 
-  '@adaliszk/std@0.3.1':
-    dependencies:
-      '@total-typescript/ts-reset': 0.5.1
-      option-t: 43.2.1
-      ulid: 2.3.0
-      zod: 3.23.8
-
   '@adaliszk/typescript-testing@5.4.4(vitest@1.6.0(@types/node@20.14.2)(jsdom@24.1.0))':
     dependencies:
       '@testdeck/core': 0.3.3
@@ -4941,7 +4931,7 @@ snapshots:
       stream-replace-string: 2.0.0
       zod: 3.23.8
 
-  '@astrojs/starlight@0.23.2(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))':
+  '@astrojs/starlight@0.24.1(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))':
     dependencies:
       '@astrojs/mdx': 3.0.1(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))
       '@astrojs/sitemap': 3.1.5
@@ -6067,7 +6057,7 @@ snapshots:
 
   '@types/sax@1.2.7':
     dependencies:
-      '@types/node': 17.0.45
+      '@types/node': 20.14.2
 
   '@types/tar@6.1.13':
     dependencies:
