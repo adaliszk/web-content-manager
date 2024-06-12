@@ -2,12 +2,13 @@
     "version": "0.2.0-dev",
     "name": "@adaliszk/content-manager",
     "description": "Helper library for accessing and rendering contents using ESM imports with Vite.",
-    "repository": "github:adaliszk/content-manager/packages/content-manager",
+    "repository": "github:adaliszk/content-manager",
     "license": "BSD 2-Clause",
     "type": "module",
     "scripts": {
         "format": "biome format --write ./core ./integration ./internal",
         "lint": "biome lint ./core ./integration ./internal",
+        "test": "vitest --config=vitest.config.ts --coverage",
         "build": "tsup"
     },
     "dependencies": {
@@ -20,7 +21,7 @@
         "zod": "^3.23.6"
     },
     "devDependencies": {
-        "@adaliszk/std": "^0.1.0",
+        "@adaliszk/std": "^0.3.1",
         "@types/js-yaml": "^4.0.9",
         "typescript": "^5.4.5"
     },

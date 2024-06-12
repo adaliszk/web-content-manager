@@ -1,25 +1,28 @@
 # Editors
-/.idea
-/.vscode
+/.idea/
+/.vscode/
 
 # Generated files
 **/content/**/*.schema.json
-docs/src/content/**/index.ts
+**/coverage/
 
 # Tools
-**/.astro
-**/.wrangler
+**/.astro/
+**/.wrangler/
 
-# Build
-/target
-**/.turbo
-**/dist
-**/server
-**/lib
+# Monorepo tooling
+.moon/cache
+.moon/docker
+
+# Build files
+/target/
+**/dist/
+**/server/
+**/lib/
 
 # Node
-**/node_modules
-/node_modules
+**/node_modules/
+/node_modules/
 
 # Logs
 **/*.log*
@@ -30,7 +33,3 @@ docs/src/content/**/index.ts
 **/.env
 .env*
 .env
-
-# moon
-.moon/cache
-.moon/docker
