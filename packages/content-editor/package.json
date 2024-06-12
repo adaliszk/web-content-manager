@@ -32,7 +32,7 @@
         "@adaliszk/content-manager": "workspace:*",
         "@adaliszk/qwik": "^1.5.7",
         "@astrojs/check": "^0.7.0",
-        "@astrojs/mdx": "^3.0.1",
+        "@astrojs/mdx": "^3.1.0",
         "@astrojs/tailwind": "^5.1.0",
         "@astrojs/ts-plugin": "^1.8.0",
         "@qwikdev/astro": "^0.5.15",

@@ -95,8 +95,8 @@ importers:
         specifier: ^0.7.0
         version: 0.7.0(prettier-plugin-astro@0.14.0)(prettier@3.3.1)(typescript@5.4.5)
       '@astrojs/mdx':
-        specifier: ^3.0.1
-        version: 3.0.1(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))
+        specifier: ^3.1.0
+        version: 3.1.0(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))
       '@astrojs/tailwind':
         specifier: ^5.1.0
         version: 5.1.0(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))(tailwindcss@3.4.3)
@@ -150,8 +150,8 @@ importers:
         version: 1.2.0(typescript@5.4.5)(zod@3.23.8)
     devDependencies:
       '@adaliszk/std':
-        specifier: ^0.3.1
-        version: 0.3.1
+        specifier: ^0.1.0
+        version: 0.1.0
       '@types/js-yaml':
         specifier: ^4.0.9
         version: 4.0.9
@@ -174,9 +174,6 @@ packages:
 
   '@adaliszk/std@0.1.0':
     resolution: {integrity: sha512-z/RJLnr3gFo96Uv8EWnksqAmlTH8StG0IKhu2m91P48/M4vq+inQ4tZwFIhoRJxD0Kuvw65Rp0+RITCv1W+TWg==}
-
-  '@adaliszk/std@0.3.1':
-    resolution: {integrity: sha512-atyU/wxHAX8hb4JgnElRZ5HjeR3T3qlxPYq2KEv6TqvN1iGA5e4DdnOoFI+2xfERoFIWax0VcZpXIgkclPs4Rg==}
 
   '@adaliszk/typescript-testing@5.4.4':
     resolution: {integrity: sha512-eu4RrSjZ9JkjiWUzwN8rTHeziBqAFTLLJa4L/7z2e5YOGcX/9VXYJZ67Rybrl292ExWzg/ih2p142ofkOIwS9Q==}
@@ -239,6 +236,12 @@ packages:
 
   '@astrojs/mdx@3.0.1':
     resolution: {integrity: sha512-UcPja14Qt6OEm7Wjak41Qa5f7G1M0oB2ARCsyIkXy6+Z65fJ6c1648UqEOqnEgR6Xtqq+V47wtK2qSP6KQKrAg==}
+    engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
+    peerDependencies:
+      astro: ^4.8.0
+
+  '@astrojs/mdx@3.1.0':
+    resolution: {integrity: sha512-yuGDaOcCAfYgLQvUAlJDezYGK4twHlzW1Kvpyg3inxtDJuAsHdyVyYLWl0Wo5nwkyrbZktdrjnoW5scqzoAqAg==}
     engines: {node: ^18.17.1 || ^20.3.0 || >=21.0.0}
     peerDependencies:
       astro: ^4.8.0
@@ -4773,13 +4776,6 @@ snapshots:
       option-t: 43.2.1
       zod: 3.23.8
 
-  '@adaliszk/std@0.3.1':
-    dependencies:
-      '@total-typescript/ts-reset': 0.5.1
-      option-t: 43.2.1
-      ulid: 2.3.0
-      zod: 3.23.8
-
   '@adaliszk/typescript-testing@5.4.4(vitest@1.6.0(@types/node@20.14.2)(jsdom@24.1.0))':
     dependencies:
       '@testdeck/core': 0.3.3
@@ -4911,6 +4907,27 @@ snapshots:
       - supports-color
 
   '@astrojs/mdx@3.0.1(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))':
+    dependencies:
+      '@astrojs/markdown-remark': 5.1.0
+      '@mdx-js/mdx': 3.0.1
+      acorn: 8.11.3
+      astro: 4.9.2(@types/node@20.14.2)(typescript@5.4.5)
+      es-module-lexer: 1.5.3
+      estree-util-visit: 2.0.0
+      github-slugger: 2.0.0
+      gray-matter: 4.0.3
+      hast-util-to-html: 9.0.1
+      kleur: 4.1.5
+      rehype-raw: 7.0.0
+      remark-gfm: 4.0.0
+      remark-smartypants: 3.0.1
+      source-map: 0.7.4
+      unist-util-visit: 5.0.0
+      vfile: 6.0.1
+    transitivePeerDependencies:
+      - supports-color
+
+  '@astrojs/mdx@3.1.0(astro@4.9.2(@types/node@20.14.2)(typescript@5.4.5))':
     dependencies:
       '@astrojs/markdown-remark': 5.1.0
       '@mdx-js/mdx': 3.0.1
